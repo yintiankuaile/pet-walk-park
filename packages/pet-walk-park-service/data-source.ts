@@ -9,7 +9,7 @@ const dataSource = new DataSource({
   password: 'Z931125&l', // MySQL 密码
   database: 'programdb', // 数据库名称
   entities: [path.join(__dirname, '/../**/*.entity.{js,ts}')], // typeorm 实体
-  entityPrefix: 'zm-', // 数据库表前缀
+  // entityPrefix: 'zm-', // 数据库表前缀
   logging: true // 开启日志
 })
 
