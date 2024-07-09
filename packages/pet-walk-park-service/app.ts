@@ -3,6 +3,7 @@ import { json, urlencoded } from 'body-parser'
 import 'reflect-metadata'
 import ds from './data-source'
 import { UserController } from './src/controllers/user.controller'
+import { ParkController } from './src/controllers/park.controller'
 
 // 新增：初始化 DataSource
 ds.initialize()
@@ -14,8 +15,8 @@ ds.initialize()
   })
 
 const app = createExpressServer({
-  // 新增：添加 UserController
-  controllers: [UserController]
+  // 新增：添加 UserController、ParkController
+  controllers: [UserController, ParkController]
 })
 
 // body 解析相关中间件

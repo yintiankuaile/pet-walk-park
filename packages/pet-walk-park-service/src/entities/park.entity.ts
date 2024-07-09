@@ -4,7 +4,7 @@
 import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity('Parks') // 将 Park 类标记为一个实体，并将其映射到数据库中的一个表，此处名字要跟数据库的关联的表名一致
-export class User {
+export class Park {
   @PrimaryGeneratedColumn() // 将 id 属性标记为主键列，并自动生成值
   id!: number
 

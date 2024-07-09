@@ -1,8 +1,8 @@
 /**
  * 用户服务类
  */
-import db from '../../data-source'
-import { User } from '../entities/user.entity'
+import db from '../../data-source';
+import { User } from '../entities/user.entity';
 
 const userRepository = db.getRepository(User)
 

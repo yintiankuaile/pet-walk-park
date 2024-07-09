@@ -8,11 +8,11 @@ import { UserService } from '../services/user.service'
 export class UserController {
   userService
   constructor() {
-    this.userService = new UserService()
+    this.userService = new UserService();
   }
 
   @Get('/userInfo')
   userInfo() {
-    return this.userService.userInfo()
+    return this.userService.userInfo();
   }
 }
