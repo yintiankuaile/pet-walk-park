@@ -1,41 +1,52 @@
 <template>
-  <view class="content">
-    <image class="logo" src="/static/logo.png" />
-    <view class="text-area">
-      <text class="title">{{ title }}</text>
-    </view>
+  <view class="container">
+    <map id="map" :latitude="latitude" :longitude="longitude" @regionchange="regionChange" :markers="markers"></map>
   </view>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue'
-const title = ref('Hello')
+<script lang="ts" setup>
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+
+
+const latitude = ref(0);
+const longitude = ref(0);
+const markers = ref([]);
+
+
+const fetchParks = async () => {
+  const response = await axios.get('http://<backend-ip>/parks')
+  markers.value = response.data.map((park) => ({
+    id: park.id,
+    latitude: park.latitude,
+    longitude: park.longitude,
+    iconPath: park.allowPets ? '/static/cat.png' : '/static/park.png',
+    width: 30,
+    height: 30
+  }))
+}
+
+const regionChange = (e) => {
+  if (e.type === 'end') {
+    fetchParks()
+  }
+}
+
+
+onMounted(() => {
+  uni.getLocation({
+    type: 'gcj02',
+    success: (res) => {
+      latitude.value = res.latitude
+      longitude.value = res.longitude
+      fetchParks()
+    }
+  })
+})
 </script>
 
-<style>
-.content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.logo {
-  height: 200rpx;
-  width: 200rpx;
-  margin-top: 200rpx;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 50rpx;
-}
-
-.text-area {
-  display: flex;
-  justify-content: center;
-}
-
-.title {
-  font-size: 36rpx;
-  color: #8f8f94;
+<style scoped>
+.container {
+  height: 100%;
 }
 </style>
