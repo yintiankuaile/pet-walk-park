@@ -6,13 +6,19 @@ import { UserService } from '../services/user.service'
 
 @Controller('/user')
 export class UserController {
-  userService
+  private readonly userService: UserService;
+
   constructor() {
     this.userService = new UserService();
   }
 
   @Get('/userInfo')
-  userInfo() {
-    return this.userService.userInfo();
-  }
+  async userInfo() {
+    try {
+        return await this.userService.userInfo();
+    } catch (error) {
+        console.error('Error in UserController:', error);
+        throw new Error('Internal Server Error');
+    }
+}
 }

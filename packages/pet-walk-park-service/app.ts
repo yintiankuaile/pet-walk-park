@@ -16,7 +16,8 @@ ds.initialize()
 
 const app = createExpressServer({
   // 新增：添加 UserController、ParkController
-  controllers: [UserController, ParkController]
+  controllers: [UserController, ParkController],
+  cors: true, // 启用 CORS，允许跨域请求
 })
 
 // body 解析相关中间件
@@ -27,7 +28,16 @@ app.use(json())
 // 这个新的 body 对象包含 key-value 键值对，若设置 extended 为 true，则键值可以是任意累心个，否则只能是字符串或数组。
 app.use(urlencoded({ extended: true }))
 
-app.listen(3000, () => {
+
+// 全局错误处理中间件
+app.use((err: any, req: any, res: any, next: any) => {
+  console.error('Unhandled error:', err);
+  if (!res.headersSent) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.listen(3000, '0.0.0.0', () => {
   console.log(`  App is running at http://localhost:3000\n`)
   console.log('  Press CTRL-C to stop\n')
 })

@@ -9,6 +9,12 @@ const userRepository = db.getRepository(User)
 export class UserService {
   // 查询当前用户信息
   async userInfo() {
-    return await userRepository.findAndCount()
-  }
+    try {
+        const parks = await userRepository.findAndCount();
+        return parks;
+    } catch (error) {
+        console.error('Error fetching parks:', error);
+        throw new Error('Internal Server Error');
+    }
+}
 }
