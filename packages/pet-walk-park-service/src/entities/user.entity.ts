@@ -3,7 +3,7 @@
  */
 import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm'
 
-@Entity('user') // 将 User 类标记为一个实体，并将其映射到数据库中的一个表
+@Entity('Users') // 将 User 类标记为一个实体，并将其映射到数据库中的一个表，此处名字要跟数据库的关联的表名一致
 export class User {
   @PrimaryGeneratedColumn() // 将 id 属性标记为主键列，并自动生成值
   id!: number
@@ -14,7 +14,7 @@ export class User {
   @Column() // 将 nickname 属性映射到数据库中的一个列
   nickname!: string
 
-  @Column()
+  @Column({ type: 'varchar', name: 'avatar_url'})
   avatarUrl!: string
 
   @Column()
