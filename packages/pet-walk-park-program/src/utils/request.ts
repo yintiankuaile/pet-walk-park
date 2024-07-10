@@ -23,8 +23,8 @@ const AUTH_STATUS_MSG_MAP: any = {
 	421: 'grantCode已过期',
 	422: '缺少grantCode',
 };
-// const baseUrl = 'http://116.198.247.204:3000';
-const baseUrl = 'http://192.168.183.174:3000';
+// const baseUrl = 'http://116.198.247.204:3000'; // 云服务ip地址
+const baseUrl = 'http://192.168.183.174:3000'; // 如果后端是本期启动，这个是本地ip地址
 
 const relogin = (code : number) => {
 	uni.showModal({
