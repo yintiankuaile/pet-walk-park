@@ -15,10 +15,20 @@ export class ParkController {
     @Get('/queryList')
     async queryList() {
         try {
-            return await this.parkService.queryList();
+            const parks = await this.parkService.queryList();
+            return { data: parks,
+                code: '0',
+                message: '',
+                success: true,
+             };
         } catch (error) {
             console.error('Error in ParkController:', error);
-            throw new Error('Internal Server Error');
+            // throw new Error('Internal Server Error');
+            return {
+                code: '-1',
+                message: '出错了',
+                success: false,
+             };
         }
     }
 }
